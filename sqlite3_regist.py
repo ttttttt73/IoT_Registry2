@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 import tkinter as tk
 from tkinter import filedialog
-
+import uuid
 
 con = sqlite3.connect('test.db')
 cur = con.cursor()
@@ -38,6 +38,9 @@ def search():
     result = cur.fetchall()
     print(result)
 
+def giveid():
+    x = uuid.uuid4()
+    return x
 
 """cur.execute("CREATE TABEL IoT (ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED, "
             "UserID AS 'UID' + RIGHT('0000' + CAST(ID AS VARCHAR(8)), 4) PERSISTED, "
