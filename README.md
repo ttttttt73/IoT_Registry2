@@ -2,6 +2,6 @@
 
 운영환경
 ========
-## db : sqlite3  
-## os : windows 10  
-## python3.6  
+* DB : sqlite3  
+* OS : windows 10  
+* python3.6  
