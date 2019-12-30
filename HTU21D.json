@@ -1,0 +1,16 @@
+{
+	"type": "Sensor",
+	"topic": "reading/htu21d",
+	"dev_name": "rpi",
+	"sensor_name": "htu21d",
+	"interface": "I2C",
+	"sensor_type": "Temperature",
+	"data_type": "float",
+	"delay_time": "600",
+	"value_type": "temperature",
+	"commnad": null,
+	"valid": {
+		"max": 100,
+		"min": -20
+	}
+}
