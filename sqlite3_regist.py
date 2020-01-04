@@ -20,9 +20,12 @@ def insert():
         print(type(json_data2))
         print(json_data)
         try:
-            query = "INSERT INTO  IoT(data) values (?)"
-            cur.execute(query, [json_data2])
+            query = "INSERT INTO  IoT(uuid, data) values (?, ?)"
+            u = uuid.uuid4()
+            cur.execute(query, (u.bytes, json_data2))
+            # cur.execute(query, (str(u), json_data2))
             con.commit()
+            print("등록된 IoT의 uuid는", u, "입니다.")
         except Exception as e:
             print("Error occured : ", e)
         # someitem = next(iter(json_data.values()))
@@ -50,7 +53,7 @@ def giveid():
 # Create table
 cur.execute("""
 create table if not exists IoT (ID integer NOT NULL PRIMARY KEY AUTOINCREMENT,
-data json);""")
+ uuid blob, data json);""")
 
 
 if __name__ == "__main__":
