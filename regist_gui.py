@@ -12,7 +12,22 @@ class WindowClass(QMainWindow, form_class):
         super().__init__()
         self.setupUi(self)
 
-        self.modelcsv = QStandardItemModel()
+        # self.modelcsv = QStandardItemModel()
+
+        self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
+        self.db.setDatabaseName('test.db')
+        self.db.open()
+        self.model = QtSql.QSqlTableModel()
+        self.initalizeModel()
+
+        self.tableView = QTableView()
+        self.tableView.setModel(self.model)
+
+        self.layout = QVBoxLayout()
+        addButton = QPushButtonq("add")
+        deleteButton = QPushButton("delete")
+        hLayout = QHBoxLayout()
+
 
         # Connect button's function
         self.btn_1.clicked.connect(self.button1Function)
@@ -37,10 +52,14 @@ class WindowClass(QMainWindow, form_class):
         self.tableWidget.setItem(0, 0, QTableWidgetItem("(0, 0)"))
         self.tableWidget.setItem(0, 1, QTableWidgetItem("(0, 1)"))
 
+    def closeEvent(self, a0: QtGui.QCloseEvent) -> None:
+        self.db.close()
+
 
 class Second(QMainWindow):
     def __init__(self):
         super(Second, self).__init__()
+
 
 
 def initializeModel(model):
@@ -66,8 +85,32 @@ def findrow(i):
     delrow = i.row()
 
 
+class wordListViewer(QMainWindow):
+    def __init__(self, path):
+        super().__init__()
+        self.dbpath = path
+        self.init_elements()
+
+    def init_elements(self):
+        exitAct = QAction(QIcon.fromTheme('exit'), 'Exit', self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.triggered.connect(qApp.quit)
+
+        self.toolbar = self.addToolBar('Exit')
+        self.toolbar.addAction(exitAct)
+
+        self.statusBar().showMessage(self.dbpath)
+
+    def init_table(self):
+        db = QtSql.QtSqlDatabase.addDatabase('QSQLITE')
+        db.setDatabaseName(self.dbptah)
+        if not db.open():
+            raise print("Could not open the database")
+
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     myWindow = WindowClass()
     myWindow.show()
-    app.exec_()
+    sys.exit(app.exec_())
