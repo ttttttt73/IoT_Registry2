@@ -6,7 +6,6 @@ from PyQt5 import QtGui, QtSql, QtCore
 
 form_class = uic.loadUiType("regist_gui.ui")[0]
 
-
 class WindowClass(QMainWindow, form_class):
     def __init__(self):
         super().__init__()
@@ -18,13 +17,13 @@ class WindowClass(QMainWindow, form_class):
         self.db.setDatabaseName('test.db')
         self.db.open()
         self.model = QtSql.QSqlTableModel()
-        self.initalizeModel()
+        # self.initalizeModel()
 
         self.tableView = QTableView()
         self.tableView.setModel(self.model)
 
         self.layout = QVBoxLayout()
-        addButton = QPushButtonq("add")
+        addButton = QPushButton("add")
         deleteButton = QPushButton("delete")
         hLayout = QHBoxLayout()
 
@@ -46,7 +45,7 @@ class WindowClass(QMainWindow, form_class):
         print("btn_2 Clicked")
 
     def pushbuttonClicked(self):
-        self.dialog.show()
+        self.dialog.ui.show()
 
     def setTableWidgetData(self):
         self.tableWidget.setItem(0, 0, QTableWidgetItem("(0, 0)"))
@@ -59,6 +58,7 @@ class WindowClass(QMainWindow, form_class):
 class Second(QMainWindow):
     def __init__(self):
         super(Second, self).__init__()
+        self.ui = uic.loadUi("makejson_ui.ui", None)
 
 
 
